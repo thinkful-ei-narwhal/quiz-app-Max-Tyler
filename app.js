@@ -120,7 +120,7 @@ function generateQuiz() {
 
 // Header //
 function generateHeader(){
-  return $('header').html(`<div class="quizHeader"><h2>Quiz Name</h2>
+  return $('header').html(`<div class="quizHeader"><h2>Test Your BJJ Knowledge</h2>
     <div class="counter">Question: ${store.questionNumber + 1} out of 5</div>
     </div>
     <div class="score">Score: ${(store.score) / 5 * 100}%</div>`);
@@ -128,23 +128,23 @@ function generateHeader(){
 
 // Feedback Positive //
 function generateFeedbackPositive() {
-  return `<div class="pfeedback"><p>Correct!</p></div>`
+  return `<div class="pfeedback"><p>Correct!</p></div>`;
 }
 
 // Feedback Negative //
 function generateFeedbackNegative() {
-  return `<div class="nfeedback"><p>Sorry! The correct answer was "${store.questions[store.questionNumber].correctAnswer}."</p></div>`
+  return `<div class="nfeedback"><p>Sorry! The correct answer was "${store.questions[store.questionNumber].correctAnswer}."</p></div>`;
 }
 
 // Next Button Insert //
 //replace Submit with Next button
 function generateNextButton() {
-return `<div class="buttonDiv"><button type="button" id ="next">Next</button></div>
-      </div>`
+  return `<div class="buttonDiv"><button type="button" id ="next">Next</button></div>
+      </div>`;
 }
 
 function generateTryAgain() {
-  return $('.lastPage').append(`<button type="button" id="tryAgain">Try Again?</button>`)
+  return $('.lastPage').append('<button type="button" id="tryAgain">Try Again?</button>');
 }
 
 //------------------------PAGE RUN FUNCTIONS-----------------------------//
@@ -190,7 +190,6 @@ function next() {
 function feedback() {
   //Appends Feedback Div to the div of the answer that was selected. 
   //Runs either positive or negative feedback depending on if the correctAnswer was selected.
-  //need to add "if nothing is selected" alert *************************************************************************************************
   if (document.querySelector('input:checked').id === store.questions[store.questionNumber].correctAnswer) {
     store.score++;
     $('.answer').append(generateFeedbackPositive());
@@ -229,6 +228,6 @@ $(document).ready(function() {
     feedback();
   });
   $('.window').on('click', '#tryAgain', function() {
-      tryAgain();
+    tryAgain();
   });
 });

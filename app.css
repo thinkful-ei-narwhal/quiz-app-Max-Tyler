@@ -6,3 +6,99 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
+
+*{
+  background-color: black;
+}
+
+h1 {
+  color: whitesmoke;
+}
+
+header, .quizHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: whitesmoke;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 700px;
+  min-height: 500px;;
+  margin: 10px auto;
+
+  border-radius:10px;
+  padding:10px;
+  }
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+ul {
+  list-style: none;
+}
+
+.pfeedback, .nfeedback {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: whitesmoke;
+  font-size: 24px;
+}
+
+.buttonDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.question {
+  color:whitesmoke;
+  border-bottom: 1px solid #ccc;
+  margin: 0;
+  padding-bottom: 10px;
+  font-size: 24px;
+  font-style: bold;
+}
+
+.answer li {
+  background-color: #cccccc;
+  font-size: 24px;
+  color: 000000;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 15px;
+
+}
+
+input[type="radio"] {
+  transform: scale(1.5);
+}
+
+button[type="button"] {
+  color: whitesmoke;
+  font-size: 20px;
+
+}
+
+.lastPage {
+  text-align: center;
+  color: whitesmoke;
+  font-size: 28px;
+}
