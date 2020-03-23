@@ -184,7 +184,6 @@ function next() {
     store.questionNumber++;
     mainQuizPage();
   }
-  console.log(`Moving on to question ${store.questionNumber + 1}.`);
 }
 
 // Feedback //
@@ -199,6 +198,7 @@ function feedback() {
   }
   disableButtons();
   $('.buttonDiv').html(generateNextButton());
+  generateHeader();
 } 
 
 // Try Again //
