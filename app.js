@@ -1,6 +1,4 @@
 /* eslint-disable strict */
-
-
 /**
  * Example store structure
  */
@@ -8,14 +6,14 @@ const store = {
   // 5 or more questions are required
   questions: [
     {
-      question: 'Sequentially, what belt is after white belt?',
+      question: 'Sequentially, what belt is after White Belt?',
       answers: [
-        'red',
-        'orange',
-        'pink',
-        'blue'
+        'Red',
+        'Orange',
+        'Pink',
+        'Blue'
       ],
-      correctAnswer: 'blue'
+      correctAnswer: 'Blue'
     },
     {
       question: 'What year did Royce Gracie debut in UFC?',
@@ -80,48 +78,157 @@ const store = {
  *
  */
 
-/********** TEMPLATE GENERATION FUNCTIONS **********/
+//------------------------GENERATE HTML-----------------------------//
 
-// These functions return HTML templates
+// Home Page //
 
 function generateHome(){
-  return `<div class='home'>`
+  return $('.window').html(`<h1>Welcome to the Jiu Jitsu Quiz!</h1>
+          <br />
+          <button type="button" id="start">Start!</button>`);
 }
 
-/********** RENDER FUNCTION(S) **********/
-
-// This function conditionally replaces the contents of the <main> tag based on the state of the store
-function feedback(){
-//Displays a screen BASED on user clicking buttons.
+// Last Page //
+function generateLastPage() {
+  return $('.window').html(`<div class="lastPage"><h2>Thanks for playing!</h2><p>Your score was ${(store.score) / 5 * 100}%</div>`);
 }
 
-function ()
-
-function questions(){
-  //Start at question 1
-  let currentQuestion = store.questions[0];
-  //Displays the question
-  console.log(currentQuestion);
-  //Display all the answers
-  let firstAnswer = store.questions[0].answers[0];
-  for(let i = 0; i <= firstAnswer.length; i++){
-    let firstAnswer = store.questions[0].answers[i];
-    console.log(firstAnswer);
+// Questions Div //
+function getQuestion() {
+  const currentQuestion = store.questions[store.questionNumber].question;
+  return currentQuestion;
+}
+    
+// Answers Div //
+function getAnswers() {
+  let array = [];
+  for (let i = 0; i < store.questions[store.questionNumber].answers.length; i++) {
+      
+    array.push(`<li><input type="radio" name="answerbutton" id="${store.questions[store.questionNumber].answers[i]}">${store.questions[store.questionNumber].answers[i]}</input></li>`);
   }
-  //needs a submit button after selecting an answer
-}
-/********** EVENT HANDLER FUNCTIONS **********/
-
-// These functions handle events (submit, click, etc)
-function userSubmits(){
-  //Needs a button for the user to smash after selecting an option. 
-  //If the user selects no option and attempts to click next, prevent them from moving to the next question. 
-
+  return array.join('');
 }
 
-function (){
-  
+// Quiz Page //
+
+function generateQuiz() {
+  return $('.window').html(`<div class="mainQuizDiv">
+    <div class="question">${getQuestion()}</div>
+    <div class="answer"><ul>${getAnswers()}</ul></div>
+    <div class="buttonDiv"><button type="button" name="submit" id="submit">Submit</input></div>`);
 }
 
+// Header //
+function generateHeader(){
+  return $('header').html(`<div class="quizHeader"><h2>Quiz Name</h2>
+    <div class="counter">Question: ${store.questionNumber + 1} out of 5</div>
+    </div>
+    <div class="score">Score: ${(store.score) / 5 * 100}%</div>`);
+}
 
-questions();
+// Feedback Positive //
+function generateFeedbackPositive() {
+  return `<div class="pfeedback"><p>Correct!</p></div>`
+}
+
+// Feedback Negative //
+function generateFeedbackNegative() {
+  return `<div class="nfeedback"><p>Sorry! The correct answer was "${store.questions[store.questionNumber].correctAnswer}."</p></div>`
+}
+
+// Next Button Insert //
+//replace Submit with Next button
+function generateNextButton() {
+return `<div class="buttonDiv"><button type="button" id ="next">Next</button></div>
+      </div>`
+}
+
+function generateTryAgain() {
+  return $('.lastPage').append(`<button type="button" id="tryAgain">Try Again?</button>`)
+}
+
+//------------------------PAGE RUN FUNCTIONS-----------------------------//
+
+// *** Each page references one or more "Generate HTML" functions from above *** //
+
+// Home Page //
+function homePage() {
+  generateHome();
+}
+
+// Main Quiz Page //
+function mainQuizPage(){
+  store.quizStarted = true;
+  generateHeader();
+  generateQuiz();
+}
+
+// Last Page //
+function lastPage() {
+  //we re-generate header to update the score to the user
+  generateLastPage();
+  generateTryAgain();
+}
+
+function disableButtons() {
+  //disables the buttons not selected after user submits
+  $('input[name="answerbutton"]').attr('disabled', true);
+}
+
+// Next Button //
+function next() {
+  if (store.questionNumber >= (store.questions.length - 1)) {
+    lastPage();
+  } else {
+    store.questionNumber++;
+    mainQuizPage();
+  }
+  console.log(`Moving on to question ${store.questionNumber + 1}.`);
+}
+
+// Feedback //
+function feedback() {
+  //Appends Feedback Div to the div of the answer that was selected. 
+  //Runs either positive or negative feedback depending on if the correctAnswer was selected.
+  //need to add "if nothing is selected" alert *************************************************************************************************
+  if (document.querySelector('input:checked').id === store.questions[store.questionNumber].correctAnswer) {
+    store.score++;
+    $('.answer').append(generateFeedbackPositive());
+  }  else {
+    $('.answer').append(generateFeedbackNegative());
+  }
+  disableButtons();
+  $('.buttonDiv').html(generateNextButton());
+} 
+
+// Try Again //
+function tryAgain() {
+  $('header').html('');
+  store.questionNumber = 0;
+  store.score = 0;
+  homePage();
+}
+
+//------------------------EVENT LISTENERS-----------------------------//
+
+// Main Event Handler //
+$(document).ready(function() {
+  //Opening function is homePage()
+  homePage();
+  //Listens for Start button to be clicked
+  $('.window').on('click', '#start', function() {
+    //if Start is clicked, runs mainQuizPage
+    mainQuizPage();
+  });
+  //if Next is clicked, runs Next function
+  $('.window').on('click', '#next', function() {
+    next();
+  });
+  //When answer is clicked, runs feedback
+  $('.window').on('click', '#submit', function() {
+    feedback();
+  });
+  $('.window').on('click', '#tryAgain', function() {
+      tryAgain();
+  });
+});
