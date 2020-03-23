@@ -230,4 +230,10 @@ $(document).ready(function() {
   $('.window').on('click', '#tryAgain', function() {
     tryAgain();
   });
+  $('.window').on('click', 'li', function() {
+    $('ul').children('input:radio').prop('checked', false);
+    $(this).children('input:radio').prop('checked', true);
+    $('ul').children('li').removeClass('highlight')
+    $(this).prop('class', 'highlight');
+  });
 });

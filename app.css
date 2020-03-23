@@ -34,7 +34,6 @@ header, .quizHeader {
   align-items: center;
 
   max-width: 700px;
-  min-height: 500px;;
   margin: 10px auto;
 
   border-radius:10px;
@@ -52,6 +51,9 @@ ul {
   list-style: none;
 }
 
+.answer .highlight {
+  background-color: white;
+}
 .pfeedback, .nfeedback {
   display: flex;
   flex-direction: column;
@@ -70,31 +72,39 @@ ul {
 
 .question {
   color:whitesmoke;
-  border-bottom: 1px solid #ccc;
+  text-align: center;
   margin: 0;
   padding-bottom: 10px;
-  font-size: 24px;
+  font-size: 32px;
   font-style: bold;
 }
 
 .answer li {
-  background-color: #cccccc;
+  background-color: lightgrey;
   font-size: 24px;
   color: 000000;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 10px;
   border-radius: 10px;
   padding: 15px;
+  text-align: center;
+  width: 50%;
 
 }
 
-input[type="radio"] {
-  transform: scale(1.5);
+.answer li:hover {
+  background-color: whitesmoke;
 }
 
 button[type="button"] {
   color: whitesmoke;
   font-size: 20px;
 
+}
+
+input[type="radio"] {
+  display: none;
 }
 
 .lastPage {
