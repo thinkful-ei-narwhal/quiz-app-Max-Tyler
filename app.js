@@ -165,7 +165,8 @@ function mainQuizPage(){
 
 // Last Page //
 function lastPage() {
-  //we re-generate header to update the score to the user
+  //we disable header, then generate the last page elements
+  $('header').html('');
   generateLastPage();
   generateTryAgain();
 }
@@ -233,7 +234,7 @@ $(document).ready(function() {
   $('.window').on('click', 'li', function() {
     $('ul').children('input:radio').prop('checked', false);
     $(this).children('input:radio').prop('checked', true);
-    $('ul').children('li').removeClass('highlight')
+    $('ul').children('li').removeClass('highlight');
     $(this).prop('class', 'highlight');
   });
 });
