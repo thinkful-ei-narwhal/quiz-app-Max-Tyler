@@ -40,7 +40,7 @@ const store = {
       answers: [
         'Kneebar',
         'Straight-ankle lock',
-        'Reverse Ashi-Garami',
+        'Ashi-Garami',
         'Heel Hook'
       ],
       correctAnswer: 'Heel Hook'
@@ -104,7 +104,7 @@ function getAnswers() {
   let array = [];
   for (let i = 0; i < store.questions[store.questionNumber].answers.length; i++) {
       
-    array.push(`<li><button type="button" class="answers enabled" value="${store.questions[store.questionNumber].answers[i]}" name="${store.questions[store.questionNumber].answers[i]}" id="${store.questions[store.questionNumber].answers[i]}">${store.questions[store.questionNumber].answers[i]}</button></li>`);
+    array.push(`<li><input type="button" class="answers enabled" value="${store.questions[store.questionNumber].answers[i]}" id="${store.questions[store.questionNumber].answers[i]}"></input></li>`);
   }
   return array.join('');
 }
@@ -179,8 +179,8 @@ function lastPage() {
 
 function disableButtons() {
   //disables the buttons not selected after user submits
-  $('button[type="button"]').removeClass('enabled');
-  $('button[type="button"]').attr('disabled', true);
+  $('input[type="button"]').removeClass('enabled');
+  $('input[type="button"]').attr('disabled', true);
 }
 
 // Next Button //
