@@ -85,7 +85,7 @@ const store = {
 function generateHome(){
   return $('.window').html(`<h1>Welcome to the Jiu Jitsu Quiz!</h1>
           <br />
-          <button type="button" id="start">Start!</button>`);
+          <button type="button" name="start" id="start">Start!</button>`);
 }
 
 // Last Page //
@@ -104,7 +104,7 @@ function getAnswers() {
   let array = [];
   for (let i = 0; i < store.questions[store.questionNumber].answers.length; i++) {
       
-    array.push(`<li><input type="radio" name="answerbutton" id="${store.questions[store.questionNumber].answers[i]}">${store.questions[store.questionNumber].answers[i]}</input></li>`);
+    array.push(`<li><button type="button" class="answers enabled" value="${store.questions[store.questionNumber].answers[i]}" name="${store.questions[store.questionNumber].answers[i]}" id="${store.questions[store.questionNumber].answers[i]}">${store.questions[store.questionNumber].answers[i]}</button></li>`);
   }
   return array.join('');
 }
@@ -112,10 +112,10 @@ function getAnswers() {
 // Quiz Page //
 
 function generateQuiz() {
-  return $('.window').html(`<div class="mainQuizDiv">
+  return $('.window').html(`<form class="mainQuizDiv" id="mainQuiz">
     <div class="question">${getQuestion()}</div>
-    <div class="answer"><ul>${getAnswers()}</ul></div>
-    <div class="buttonDiv"><button type="button" name="submit" id="submit">Submit</input></div>`);
+    <div class="answer"><form>${getAnswers()}</form></div>
+    <div class="buttonDiv"><button type="button" name="submit" id="submit">Submit</input></form>`);
 }
 
 // Header //
@@ -139,12 +139,12 @@ function generateFeedbackNegative() {
 // Next Button Insert //
 //replace Submit with Next button
 function generateNextButton() {
-  return `<div class="buttonDiv"><button type="button" id ="next">Next</button></div>
+  return `<div class="buttonDiv"><button type="button" name="next" id ="next">Next</button></div>
       </div>`;
 }
 
 function generateTryAgain() {
-  return $('.lastPage').append('<button type="button" id="tryAgain">Try Again?</button>');
+  return $('.lastPage').append('<button type="button" name="again" id="tryAgain">Try Again?</button>');
 }
 
 //------------------------PAGE RUN FUNCTIONS-----------------------------//
@@ -163,6 +163,12 @@ function mainQuizPage(){
   generateQuiz();
 }
 
+//Stores User Answer
+function storeAnswer() {
+  const selectedAnswer = $('.highlight').children(':button').val();
+  return selectedAnswer;
+}
+
 // Last Page //
 function lastPage() {
   //we disable header, then generate the last page elements
@@ -173,7 +179,8 @@ function lastPage() {
 
 function disableButtons() {
   //disables the buttons not selected after user submits
-  $('input[name="answerbutton"]').attr('disabled', true);
+  $('button[type="button"]').removeClass('enabled');
+  $('button[type="button"]').attr('disabled', true);
 }
 
 // Next Button //
@@ -190,7 +197,7 @@ function next() {
 function feedback() {
   //Appends Feedback Div to the div of the answer that was selected. 
   //Runs either positive or negative feedback depending on if the correctAnswer was selected.
-  if (document.querySelector('input:checked').id === store.questions[store.questionNumber].correctAnswer) {
+  if (storeAnswer() === store.questions[store.questionNumber].correctAnswer) {
     store.score++;
     $('.answer').append(generateFeedbackPositive());
   }  else {
@@ -232,9 +239,8 @@ $(document).ready(function() {
     tryAgain();
   });
   $('.window').on('click', 'li', function() {
-    $('ul').children('input:radio').prop('checked', false);
-    $(this).children('input:radio').prop('checked', true);
-    $('ul').children('li').removeClass('highlight');
+    $('.answer').children('li').removeClass('highlight');
     $(this).prop('class', 'highlight');
+    storeAnswer();
   });
 });

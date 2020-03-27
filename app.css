@@ -1,4 +1,4 @@
-/* Your styles should be mobile-first and responsive */
+/* Your styles should be mobile-first and responsive
 
 /** 
   * If you are unclear on how to utilize a mobile-first, responsive technique to write your CSS, here is an example: 
@@ -11,8 +11,9 @@
   background-color: black;
 }
 
-h1 {
+h1, h2 {
   color: whitesmoke;
+  text-align: center;
 }
 
 header, .quizHeader {
@@ -47,13 +48,12 @@ footer {
   align-items: center;
 }
 
-ul {
+form {
   list-style: none;
+  text-align: center;
 }
 
-.answer .highlight {
-  background-color: white;
-}
+
 .pfeedback, .nfeedback {
   display: flex;
   flex-direction: column;
@@ -79,7 +79,7 @@ ul {
   font-style: bold;
 }
 
-.answer li {
+.answer button[type="button"] {
   background-color: lightgrey;
   font-size: 24px;
   color: 000000;
@@ -93,18 +93,22 @@ ul {
 
 }
 
-.answer li:hover {
+.enabled button[type="button"]:hover, .answer button[type="button"]::selection {
   background-color: whitesmoke;
 }
 
-button[type="button"] {
+.highlight button[type="button"]{
+  background-color: whitesmoke;
+}
+
+button[name="submit"], button[name="next"], button[name="start"], button[name="again"] {
   color: whitesmoke;
   font-size: 20px;
 
 }
 
-input[type="radio"] {
-  display: none;
+footer {
+  color: whitesmoke;
 }
 
 .lastPage {
