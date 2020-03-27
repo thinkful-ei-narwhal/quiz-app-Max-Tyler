@@ -93,10 +93,6 @@ form {
 
 }
 
-.enabled button[type="button"]:hover, .answer button[type="button"]::selection {
-  background-color: whitesmoke;
-}
-
 .highlight button[type="button"]{
   background-color: whitesmoke;
 }
