@@ -143,6 +143,10 @@ function generateNextButton() {
       </div>`;
 }
 
+function generateNoAnswer() {
+  return `<div class="no-answer"><p>Please select an answer</p></div>`
+}
+
 function generateTryAgain() {
   return $('.lastPage').append('<button type="button" name="again" id="tryAgain">Try Again?</button>');
 }
@@ -197,7 +201,11 @@ function next() {
 function feedback() {
   //Appends Feedback Div to the div of the answer that was selected. 
   //Runs either positive or negative feedback depending on if the correctAnswer was selected.
-  if (storeAnswer() === store.questions[store.questionNumber].correctAnswer) {
+  if (!storeAnswer()) {
+    return $('.answer').append(generateNoAnswer());
+  }
+  else if (storeAnswer() === store.questions[store.questionNumber].correctAnswer) {
+    $('.no-answer').html('');
     store.score++;
     $('.answer').append(generateFeedbackPositive());
   }  else {

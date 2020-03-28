@@ -54,7 +54,7 @@ form {
 }
 
 
-.pfeedback, .nfeedback {
+.pfeedback, .nfeedback, .no-answer {
   display: flex;
   flex-direction: column;
   justify-content: center;
